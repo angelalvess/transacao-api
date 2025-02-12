@@ -21,7 +21,7 @@ public class StatisticsService {
 
 
     public StatisticsDTO statisticsCalculate (Integer timeInterval) {
-        List<TransactionDTO> transactions = transactionService.getAllTransactions(timeInterval);
+        List<TransactionDTO> transactions = transactionService.getTransactionsStatistics(timeInterval);
 
         if (transactions.isEmpty()){
             new StatisticsDTO(0L,0.0,0.0,0.0,0.0);

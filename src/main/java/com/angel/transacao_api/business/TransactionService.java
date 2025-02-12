@@ -17,7 +17,7 @@ public class TransactionService {
 
     private final List<TransactionDTO> listTransactions = new ArrayList<>();
 
-    public void createTransaction(@RequestBody TransactionDTO dto) {
+    public void createTransaction(TransactionDTO dto) {
         if (dto.dateTime().isAfter(OffsetDateTime.now())){
             throw new UnprocessableEntity("A transação NÃO DEVE acontecer no futuro");
         }
@@ -33,7 +33,7 @@ public class TransactionService {
         listTransactions.clear();
     }
 
-    public List<TransactionDTO> getAllTransactions(Integer timeInterval) {
+    public List<TransactionDTO> getTransactionsStatistics(Integer timeInterval) {
 
         OffsetDateTime interval = OffsetDateTime.now().minusSeconds(timeInterval);
 
