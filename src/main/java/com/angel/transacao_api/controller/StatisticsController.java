@@ -16,7 +16,6 @@ public class StatisticsController {
 
     private final StatisticsService statisticsService;
 
-
     @GetMapping
     public ResponseEntity<StatisticsDTO> statisticsCalculate (@RequestParam(defaultValue = 60, required = false, value = "timeInterval") Integer timeInterval) {
 
@@ -24,8 +23,6 @@ public class StatisticsController {
 
         return ResponseEntity.status(HttpStatus.OK).body(statisticsService.statisticsCalculate(timeInterval));
 
-
     }
-
 
 }

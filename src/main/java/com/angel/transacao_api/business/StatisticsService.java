@@ -4,6 +4,7 @@ import com.angel.transacao_api.business.exceptions.UnprocessableEntity;
 import com.angel.transacao_api.controller.dtos.StatisticsDTO;
 import com.angel.transacao_api.controller.dtos.TransactionDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StatisticsService {
 
     @Autowired
@@ -21,6 +23,8 @@ public class StatisticsService {
 
 
     public StatisticsDTO statisticsCalculate (Integer timeInterval) {
+        log.info("Iniciada busca de estatísticas de transações pelo período de tempo " + timeInterval);
+
         List<TransactionDTO> transactions = transactionService.getTransactionsStatistics(timeInterval);
 
         if (transactions.isEmpty()){
@@ -29,6 +33,7 @@ public class StatisticsService {
 
         DoubleSummaryStatistics transactionStatistics = transactions.stream().mapToDouble(TransactionDTO::value).summaryStatistics();
 
+        log.info("Estatisticas retornadas com sucesso");
         return new StatisticsDTO(transactionStatistics.getCount(), transactionStatistics.getSum(), transactionStatistics.getAverage(), transactionStatistics.getMin(), transactionStatistics.getMax());
 
     }
